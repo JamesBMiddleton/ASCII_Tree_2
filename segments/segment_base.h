@@ -3,11 +3,12 @@
 
 #include "segment.h"
 
-struct SegmentBase : Segment
+struct SegmentBase : public Segment
 {
-    void next_segment() override;
+    std::vector<std::shared_ptr<Segment>> get_next_segments() override;
     void draw_segment() override;
-    SegmentBase(std::set<Segment*>&);
+    SegmentBase();
+    ~SegmentBase() {};
 };
 
 #endif

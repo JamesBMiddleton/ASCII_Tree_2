@@ -1,21 +1,15 @@
 #include "segment_trunk.h"
 
-SegmentTrunk::SegmentTrunk(Coords p_coords, std::string p_glyph, Segment* p_previous_segment)
-    :Segment(p_coords, p_glyph, p_previous_segment)
-{
+SegmentTrunk::SegmentTrunk(Coords p_coords, std::string p_glyph)
+    :Segment{p_coords, p_glyph}
+{}
 
-}
-
-void SegmentTrunk::next_segment()
+std::vector<std::shared_ptr<Segment>> SegmentTrunk::get_next_segments()
 {
     draw_segment();
-    Segment* s = new SegmentTrunk{{coords.x, coords.y+1}, glyph, this};
-    branch_pool.insert(s);
-    if (branch_pool.find(prev_segment) != branch_pool.end())
-    {
-        delete prev_segment;
-        branch_pool.erase(prev_segment);
-    }
+    std::vector<std::shared_ptr<Segment>> next_segments;
+    next_segments.push_back(std::shared_ptr<Segment>{new SegmentTrunk{{coords.x, coords.y+1}, "|   |"}});
+    return next_segments;
 }
 
 void SegmentTrunk::draw_segment()

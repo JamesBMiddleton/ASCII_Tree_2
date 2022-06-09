@@ -4,15 +4,25 @@
 Canvas::Canvas()
     :branch_pool{}
 {
-    branch_pool.insert(new SegmentBase{branch_pool});
+    branch_pool.push_back(std::unique_ptr<Segment>{new SegmentBase{}});
 }
 
 void Canvas::grow_branches()
 {
-    std::cout << branch_pool.size();
-    while (branch_pool.size())
-    {
-        for (Segment* s : branch_pool)   // can't add to it while iterating over it anyway...
-            s->next_segment();
+    int n{10};
+    while (n--)
+    {   
+        std::vector<std::shared_ptr<Segment>> new_pool;
+        for (std::shared_ptr<Segment>& s_ptr : branch_pool)
+        {
+            std::vector<std::shared_ptr<Segment>> temp = s_ptr.get()->get_next_segments();
+            new_pool.insert(
+                    new_pool.end(),
+                    std::make_move_iterator(temp.begin()),
+                    std::make_move_iterator(temp.end())
+                );
+        }
+        branch_pool = new_pool;
     }
+    
 }

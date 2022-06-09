@@ -2,21 +2,23 @@
 #define SEGMENT_H_
 
 #include <string>
-#include <set>
+#include <vector>
 #include <iostream>
+#include <memory>
 
 struct Coords {int x, y;};
 
 struct Segment
-{
-    virtual void next_segment();
-    virtual void draw_segment();
+{   
+    virtual ~Segment() {};
+    virtual std::vector<std::shared_ptr<Segment>> get_next_segments() = 0;
+    virtual void draw_segment() = 0;
+    
 protected:
+    Segment() {};
+    Segment(Coords, std::string);
     Coords coords;
     std::string glyph;
-    Segment* prev_segment;
-    static std::set<Segment*>& branch_pool;  // static members cannot be inherited
-    Segment(Coords, std::string, Segment*);
 };
 
 #endif

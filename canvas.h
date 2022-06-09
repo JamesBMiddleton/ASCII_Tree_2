@@ -3,7 +3,7 @@
 
 #include "segments/segment.h"
 
-#include <set>
+#include <vector>
 
 struct Constraints{};
 
@@ -12,7 +12,7 @@ struct Canvas
     void grow_branches();
     Canvas();
 private:
-    std::set<Segment*> branch_pool;
+    std::vector<std::shared_ptr<Segment>> branch_pool;
     //Constraints constraints;
 };
 

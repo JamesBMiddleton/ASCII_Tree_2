@@ -1,17 +1,16 @@
 #include "segment_base.h"
 #include "segment_trunk.h"
 
-SegmentBase::SegmentBase(std::set<Segment*>& pool)
-    :Segment(Coords{10,20}, "/    \\", this)
-{
-    branch_pool = pool;
-}
+SegmentBase::SegmentBase()
+    :Segment{{10,20}, "/   \\"}
+{}
 
-void SegmentBase::next_segment()
+std::vector<std::shared_ptr<Segment>> SegmentBase::get_next_segments()
 {
     draw_segment();
-    Segment* s = new SegmentTrunk{{coords.x, coords.y+1}, "|   |", this};
-    branch_pool.insert(s);
+    std::vector<std::shared_ptr<Segment>> next_segments;
+    next_segments.push_back(std::shared_ptr<Segment>{new SegmentTrunk{{coords.x, coords.y+1}, "|   |"}});
+    return next_segments;
 }
 
 void SegmentBase::draw_segment()
