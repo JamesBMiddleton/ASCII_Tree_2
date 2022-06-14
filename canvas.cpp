@@ -24,5 +24,4 @@ void Canvas::grow_branches()
         }
         branch_pool = new_pool;
     }
-    
 }
