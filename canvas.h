@@ -12,7 +12,7 @@ struct Canvas
     void grow_branches();
     Canvas();
 private:
-    std::vector<std::shared_ptr<Segment>> branch_pool;
+    std::vector<std::unique_ptr<Segment>> branch_pool;
     //Constraints constraints;
 };
 

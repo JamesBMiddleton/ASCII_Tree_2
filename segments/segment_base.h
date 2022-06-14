@@ -5,7 +5,7 @@
 
 struct SegmentBase : public Segment
 {
-    std::vector<std::shared_ptr<Segment>> get_next_segments() override;
+    void choose_next_segments() override;
     void draw_segment() override;
     SegmentBase();
     ~SegmentBase() {};

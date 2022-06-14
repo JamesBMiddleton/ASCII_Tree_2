@@ -5,12 +5,10 @@ SegmentBase::SegmentBase()
     :Segment{{10,20}, "/   \\"}
 {}
 
-std::vector<std::shared_ptr<Segment>> SegmentBase::get_next_segments()
+void SegmentBase::choose_next_segments()
 {
-    draw_segment();
-    std::vector<std::shared_ptr<Segment>> next_segments;
-    next_segments.push_back(std::shared_ptr<Segment>{new SegmentTrunk{{coords.x, coords.y+1}, "|   |"}});
-    return next_segments;
+    next_segs.clear();
+    next_segs.push_back(std::unique_ptr<Segment>{new SegmentTrunk{{coords.x, coords.y+1}, "|   |"}});
 }
 
 void SegmentBase::draw_segment()
