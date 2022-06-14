@@ -6,8 +6,8 @@
 struct SegmentBase : public Segment
 {
     void choose_next_segments() override;
-    void draw_segment() override;
-    SegmentBase();
+    // void draw_segment() override;
+    SegmentBase(Coords);
     ~SegmentBase() {};
 };
 
