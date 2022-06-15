@@ -4,7 +4,7 @@
 Canvas::Canvas()
     :branch_pool{}
 {
-    branch_pool.push_back(std::unique_ptr<Segment>{new SegmentBase{{10, 10}}});
+    branch_pool.push_back(std::unique_ptr<Segment>{new SegmentBase{{10, 2}}});
 }
 
 void Canvas::grow_branches()

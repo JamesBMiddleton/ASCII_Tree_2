@@ -1,24 +1,26 @@
 #include "canvas.h"
 
-void clear_screen(int x, int y)
-// Prints a string of whitespace to clear the screen and removes the cursor.
-{
+void setup_screen(int x, int y)
+// Prints a string of whitespace to clear the screen
+// Removes the cursor
+// Sets the screen max height and width 
+{   
+    TERMINAL_INFO::max_width = x;
+    TERMINAL_INFO::max_height = y;
     int total{x*y};
     std::string s(total, ' ');
-    std::cout << s << "\x1b[?25l"; // CONSTANTS
+    std::cout << s << ANSI::HIDE_CURSOR;
     std::cout.flush();
 }
 
 int main(int argc, char* argv[])
 {
-    clear_screen(24, 80);
+    setup_screen(80, 24);
     Canvas canvas;
     canvas.grow_branches();
-    std::cout << "\x1B[" << 24 << ";" << 1 << "H" << "\x1b[?25h";  // returns cursor to bottom of terminal. CONSTANTS IN NAMESPACE.
+    std::cout << ANSI::move_cursor(1, 1) << ANSI::SHOW_CURSOR << ANSI::RESET_COLOUR;
     return 1;
 }
 
 // sort param naming
-// add constants
-// sort colour member for segments
 // sort messed up coords systems - goes from top left.  left = neg_x, right = pos_x, up = neg_y,  down = pos_y.  terminal takes y then x.

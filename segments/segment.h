@@ -1,6 +1,8 @@
 #ifndef SEGMENT_H_
 #define SEGMENT_H_
 
+#include "../terminal_abstractions.h"
+
 #include <string>
 #include <vector>
 #include <iostream>
