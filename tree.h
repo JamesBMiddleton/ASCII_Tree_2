@@ -1,17 +1,16 @@
-#ifndef CANVAS_H_
-#define CANVAS_H_
+#ifndef TREE_H_
+#define TREE_H_
 
 #include "segments/segment.h"
 
 #include <vector>
 
-struct Constraints{};
-
-struct Canvas
+struct Tree
 {
     void grow_branches();
-    Canvas();
+    Tree(Constraints);
 private:
+    Tree();
     std::vector<std::unique_ptr<Segment>> branch_pool;
     //Constraints constraints;
 };

@@ -1,13 +1,19 @@
-#include "canvas.h"
+#include "tree.h"
 #include "segments/segment_base.h"
 
-Canvas::Canvas()
+
+
+Tree::Tree(Constraints constraints)
     :branch_pool{}
 {
-    branch_pool.push_back(std::unique_ptr<Segment>{new SegmentBase{{10, 2}}});
+    branch_pool.push_back(
+        std::unique_ptr<Segment>{new SegmentBase{
+            {10, 10},
+            std::shared_ptr<Constraints>{new Constraints{constraints}}}}     // This is messy... also should be using 'make_shared/unique'.
+    );
 }
 
-void Canvas::grow_branches()
+void Tree::grow_branches()
 /* The main program loop.
    Draws the segments in the branch_pool and moves the next segments chosen by each segment into
    branch_pool via new_pool.

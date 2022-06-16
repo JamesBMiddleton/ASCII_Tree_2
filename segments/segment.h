@@ -10,6 +10,19 @@
 
 struct Coords {int x, y;};
 
+struct Colour {int r, g, b;};
+
+struct Constraints
+{
+    int max_height;
+    int max_trunk_height;
+    int max_arm_height;
+    int max_twig_height;
+
+    Colour wood;
+    Colour leaves;
+};
+
 struct Segment
 {   
     virtual ~Segment() {};
@@ -18,10 +31,12 @@ struct Segment
     std::vector<std::unique_ptr<Segment>>& get_next_segments() {return next_segs;}
 protected:
     std::vector<std::unique_ptr<Segment>> next_segs;
-    Segment() {};
-    Segment(Coords, std::string);
+    Segment(Coords, std::string, std::shared_ptr<Constraints>);
     Coords coords;
     std::string glyph;
+    std::shared_ptr<Constraints> constraints;
+private:
+    Segment() {};
 };
 
 #endif

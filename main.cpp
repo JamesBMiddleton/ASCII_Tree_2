@@ -1,4 +1,4 @@
-#include "canvas.h"
+#include "tree.h"
 
 void setup_screen(int x, int y)
 // Prints a string of whitespace to clear the screen
@@ -16,11 +16,14 @@ void setup_screen(int x, int y)
 int main(int argc, char* argv[])
 {
     setup_screen(80, 24);
-    Canvas canvas;
-    canvas.grow_branches();
+    Constraints c{0,0,0,0, {0,0,0}, {0,0,0}};
+    Tree tree{c};
+    tree.grow_branches();
     std::cout << ANSI::move_cursor(1, 1) << ANSI::SHOW_CURSOR << ANSI::RESET_COLOUR;
     return 1;
 }
 
 // sort param naming
-// sort messed up coords systems - goes from top left.  left = neg_x, right = pos_x, up = neg_y,  down = pos_y.  terminal takes y then x.
+
+// So I've now got a shared_ptr for a single Constraints object being passed to every segment in a Tree.
+// Next task is using constraints to and randomness to choose the next segments

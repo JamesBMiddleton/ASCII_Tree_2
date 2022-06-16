@@ -1,7 +1,7 @@
 #include "segment.h"
 
-Segment::Segment(Coords p_coords, std::string p_glyph)
-    :coords{p_coords}, glyph{p_glyph}
+Segment::Segment(Coords p_coords, std::string p_glyph, std::shared_ptr<Constraints> p_constraints)
+    :coords{p_coords}, glyph{p_glyph}, constraints{p_constraints}
 {
 
 }
