@@ -25,5 +25,4 @@ int main(int argc, char* argv[])
 
 // sort param naming
 
-// So I've now got a shared_ptr for a single Constraints object being passed to every segment in a Tree.
-// Next task is using constraints to and randomness to choose the next segments
+// clean up so segment and segment base is in same file, all trunks in same file, all arms etc... sort out naming as well "trunks.cpp", "arms.cpp", "twigs.cpp"
