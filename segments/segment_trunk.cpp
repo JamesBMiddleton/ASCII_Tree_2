@@ -7,7 +7,20 @@ SegmentTrunk::SegmentTrunk(Coords p_coords, std::string p_glyph, std::shared_ptr
 void SegmentTrunk::choose_next_segments()
 {
     next_segs.clear();
-    next_segs.push_back(std::unique_ptr<Segment>{new SegmentTrunk{{coords.x, coords.y+1}, "|   |", constraints}});
+    int choice = rand() % 3;
+    switch (choice)
+    {
+        case 0:
+            next_segs.push_back(std::unique_ptr<Segment>{new SegmentTrunk{{coords.x, coords.y+1}, "|   |", constraints}});
+            break;
+        case 1:
+            next_segs.push_back(std::unique_ptr<Segment>{new SegmentTrunk{{coords.x-1, coords.y+1}, "\\   \\", constraints}});
+            break;
+        case 2:
+            next_segs.push_back(std::unique_ptr<Segment>{new SegmentTrunk{{coords.x+1, coords.y+1}, "/   /", constraints}});
+            break;
+    }
+    
 }
 
 

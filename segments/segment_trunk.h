@@ -5,7 +5,7 @@
 
 struct SegmentTrunk : public Segment
 {
-    virtual void choose_next_segments() override;
+    void choose_next_segments() override;
     // void draw_segment() override;
     SegmentTrunk(Coords, std::string, std::shared_ptr<Constraints>);
     ~SegmentTrunk() {};
