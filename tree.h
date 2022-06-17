@@ -12,7 +12,6 @@ struct Tree
 private:
     Tree();
     std::vector<std::unique_ptr<Segment>> branch_pool;
-    //Constraints constraints;
 };
 
 #endif

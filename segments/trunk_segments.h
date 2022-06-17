@@ -1,5 +1,5 @@
-#ifndef SEGMENT_TRUNK_H_
-#define SEGMENT_TRUNK_H_
+#ifndef TRUNK_SEGMENTS_H_
+#define TRUNK_SEGMENTS_H_
 
 #include "segment.h"
 
@@ -25,6 +25,13 @@ struct TrunkRight : public SegmentTrunk
 {
     void choose_next_segments() override;
     TrunkRight(Coords, std::shared_ptr<Constraints>);
+};
+
+
+struct TrunkSplit : public SegmentTrunk
+{
+    void choose_next_segments() override;
+    TrunkSplit(Coords, std::shared_ptr<Constraints>);
 };
 
 #endif
