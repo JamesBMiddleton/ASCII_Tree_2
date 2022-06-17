@@ -5,10 +5,26 @@
 
 struct SegmentTrunk : public Segment
 {
-    void choose_next_segments() override;
-    // void draw_segment() override;
+protected:
     SegmentTrunk(Coords, std::string, std::shared_ptr<Constraints>);
-    ~SegmentTrunk() {};
+};
+
+struct TrunkStraight : public SegmentTrunk
+{
+    void choose_next_segments() override;
+    TrunkStraight(Coords, std::shared_ptr<Constraints>);
+};
+
+struct TrunkLeft : public SegmentTrunk
+{
+    void choose_next_segments() override;
+    TrunkLeft(Coords, std::shared_ptr<Constraints>);
+};
+
+struct TrunkRight : public SegmentTrunk
+{
+    void choose_next_segments() override;
+    TrunkRight(Coords, std::shared_ptr<Constraints>);
 };
 
 #endif

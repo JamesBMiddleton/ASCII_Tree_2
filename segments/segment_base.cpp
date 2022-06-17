@@ -8,7 +8,7 @@ SegmentBase::SegmentBase(Coords p_coords, std::shared_ptr<Constraints> p_constra
 void SegmentBase::choose_next_segments()
 {
     next_segs.clear();
-    next_segs.push_back(std::unique_ptr<Segment>{new SegmentTrunk{{coords.x+1, coords.y+1}, "|   |", constraints}});
+    next_segs.push_back(std::unique_ptr<Segment>{new TrunkStraight{{coords.x+1, coords.y+1}, constraints}});
 }
 
 // void SegmentBase::draw_segment()
