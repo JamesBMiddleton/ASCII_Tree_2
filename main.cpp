@@ -1,5 +1,7 @@
 #include "tree.h"
 
+#include <chrono>
+
 void setup_screen(int x, int y)
 // Prints a string of whitespace to clear the screen
 // Removes the cursor
@@ -15,6 +17,7 @@ void setup_screen(int x, int y)
 
 int main(int argc, char* argv[])
 {
+    srand(time(NULL));
     setup_screen(80, 24);
     Constraints c{0,0,0,0, {0,0,0}, {0,0,0}};
     Tree tree{c};
@@ -23,6 +26,7 @@ int main(int argc, char* argv[])
     return 1;
 }
 
-// sort param naming
+// current choose_segment implementation involves a lot of copied code... there must be a better
+// solution. I hope its not an inherent problem with the design.
 
-// clean up so segment and segment base is in same file, all trunks in same file, all arms etc... sort out naming as well "trunks.cpp", "arms.cpp", "twigs.cpp"
+// Arm coords need tweaking.

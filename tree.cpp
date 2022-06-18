@@ -7,7 +7,7 @@ Tree::Tree(Constraints constraints)
 {
     branch_pool.push_back(
         std::unique_ptr<Segment>{new SegmentBase{
-            {10, 10},
+            {20, 3},
             std::shared_ptr<Constraints>{new Constraints{constraints}}}}     // This is messy... also should be using 'make_shared/unique'.
     );
 }
