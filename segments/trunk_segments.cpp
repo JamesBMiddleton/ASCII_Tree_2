@@ -44,34 +44,19 @@ TrunkStraight::TrunkStraight(Coords p_coords, std::shared_ptr<Constraints> p_con
 
 void TrunkStraight::choose_next_segments()
 {
-    std::map<Choice, int> probability {{Choice::Straight, 1}, {Choice::Left, 1}, {Choice::Right, 1}};
-    std::map<Choice, Coords> adj_coords {{Choice::Straight, {coords.x, coords.y+1}}, {Choice::Left, {coords.x, coords.y+1}}, {Choice::Right, {coords.x, coords.y+1}}};
+    std::map<Choice, int> probability {{Choice::Straight, 1},
+                                    {Choice::Left, 1},
+                                    {Choice::Right, 1}, 
+                                    {Choice::Split, 1},
+                                    {Choice::ArmLeft, 1},
+                                    {Choice::ArmRight, 1}};
+    std::map<Choice, Coords> adj_coords {{Choice::Straight, {coords.x, coords.y+1}},
+                                        {Choice::Left, {coords.x-1, coords.y+1}},
+                                        {Choice::Right, {coords.x+1, coords.y+1}},
+                                        {Choice::Split, {coords.x, coords.y+1}},
+                                        {Choice::ArmLeft, {coords.x, coords.y+1}},
+                                        {Choice::ArmRight, {coords.x, coords.y+1}}};
     choose_trunk_segment(probability, adj_coords);
-    std::cout << "worked...?";
-    // next_segs.clear();
-    // static std::vector<int> raffle {0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5};
-    // int choice = rand() % (raffle.size() -1);
-    // switch (raffle[choice])
-    // {
-    //     case 0:
-    //         next_segs.push_back(std::unique_ptr<Segment>{new TrunkStraight{{coords.x, coords.y+1}, constraints}});
-    //         break;
-    //     case 1:
-    //         next_segs.push_back(std::unique_ptr<Segment>{new TrunkLeft{{coords.x-1, coords.y+1}, constraints}});
-    //         break;
-    //     case 2:
-    //         next_segs.push_back(std::unique_ptr<Segment>{new TrunkRight{{coords.x+1, coords.y+1}, constraints}});
-    //         break;
-    //     case 3:
-    //         next_segs.push_back(std::unique_ptr<Segment>{new TrunkSplit{{coords.x, coords.y+1}, constraints}});
-    //         break;
-    //     case 4:
-    //         next_segs.push_back(std::unique_ptr<Segment>{new TrunkArmLeft{{coords.x, coords.y+1}, constraints}});
-    //         break;
-    //     case 5:
-    //         next_segs.push_back(std::unique_ptr<Segment>{new TrunkArmRight{{coords.x, coords.y+1}, constraints}});
-    //         break;
-    // }  
 }
 
 
@@ -81,30 +66,17 @@ TrunkLeft::TrunkLeft(Coords p_coords, std::shared_ptr<Constraints> p_constraints
 
 void TrunkLeft::choose_next_segments()
 {
-    next_segs.clear();
-    static std::vector<int> raffle {0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5};
-    int choice = rand() % (raffle.size() -1);
-    switch (raffle[choice])
-    {
-        case 0:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkStraight{{coords.x, coords.y+1}, constraints}});
-            break;
-        case 1:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkLeft{{coords.x-1, coords.y+1}, constraints}});
-            break;
-        case 2:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkRight{{coords.x, coords.y+1}, constraints}});
-            break;
-        case 3:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkSplit{{coords.x-1, coords.y+1}, constraints}});
-            break;
-        case 4:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkArmLeft{{coords.x-1, coords.y+1}, constraints}});
-            break;
-        case 5:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkArmRight{{coords.x-1, coords.y+1}, constraints}});
-            break;
-    }  
+    std::map<Choice, int> probability {{Choice::Straight, 1},
+                                    {Choice::Left, 1},
+                                    {Choice::Split, 1},
+                                    {Choice::ArmLeft, 1},
+                                    {Choice::ArmRight, 1}};
+    std::map<Choice, Coords> adj_coords {{Choice::Straight, {coords.x, coords.y+1}},
+                                         {Choice::Left, {coords.x-1, coords.y+1}},
+                                         {Choice::Split, {coords.x-1, coords.y+1}},
+                                         {Choice::ArmLeft, {coords.x-1, coords.y+1}},
+                                         {Choice::ArmRight, {coords.x-1, coords.y+1}}};
+    choose_trunk_segment(probability, adj_coords); 
 }
 
 TrunkRight::TrunkRight(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
@@ -113,30 +85,17 @@ TrunkRight::TrunkRight(Coords p_coords, std::shared_ptr<Constraints> p_constrain
 
 void TrunkRight::choose_next_segments()
 {
-    next_segs.clear();
-    static std::vector<int> raffle {0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5};
-    int choice = rand() % (raffle.size() -1);
-    switch (raffle[choice])
-    {
-        case 0:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkStraight{{coords.x, coords.y+1}, constraints}});
-            break;
-        case 1:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkLeft{{coords.x, coords.y+1}, constraints}});
-            break;
-        case 2:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkRight{{coords.x+1, coords.y+1}, constraints}});
-            break;
-        case 3:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkSplit{{coords.x+1, coords.y+1}, constraints}});
-            break;
-        case 4:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkArmLeft{{coords.x, coords.y+1}, constraints}});
-            break;
-        case 5:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkArmRight{{coords.x, coords.y+1}, constraints}});
-            break;
-    }  
+    std::map<Choice, int> probability {{Choice::Straight, 1},
+                                    {Choice::Right, 1},
+                                    {Choice::Split, 1},
+                                    {Choice::ArmLeft, 1},
+                                    {Choice::ArmRight, 1}};
+    std::map<Choice, Coords> adj_coords {{Choice::Straight, {coords.x, coords.y+1}},
+                                         {Choice::Right, {coords.x+1, coords.y+1}},
+                                         {Choice::Split, {coords.x, coords.y+1}},
+                                         {Choice::ArmLeft, {coords.x, coords.y+1}},
+                                         {Choice::ArmRight, {coords.x, coords.y+1}}};
+    choose_trunk_segment(probability, adj_coords);
 }
 
 

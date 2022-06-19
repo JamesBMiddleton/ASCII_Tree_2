@@ -8,6 +8,8 @@ struct SegmentArm : public Segment
 {
 protected:
     SegmentArm(Coords, std::string, std::shared_ptr<Constraints>);
+    enum class Choice{Straight, Left, Right};
+    void choose_arm_segment(std::map<Choice, int>, std::map<Choice, Coords>);
 };
 
 
