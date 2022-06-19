@@ -6,7 +6,6 @@ SegmentTrunk::SegmentTrunk(Coords p_coords, std::string p_glyph, std::shared_ptr
 {}
 
 
-
 TrunkStraight::TrunkStraight(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
     :SegmentTrunk{p_coords, "|   |", p_constraints}
 {}
@@ -28,7 +27,7 @@ void TrunkStraight::choose_next_segments()
             next_segs.push_back(std::unique_ptr<Segment>{new TrunkRight{{coords.x+1, coords.y+1}, constraints}});
             break;
         case 3:
-            next_segs.push_back(std::unique_ptr<Segment>{new TrunkSplit{{coords.x+1, coords.y+1}, constraints}});
+            next_segs.push_back(std::unique_ptr<Segment>{new TrunkSplit{{coords.x, coords.y+1}, constraints}});
     }  
 }
 
