@@ -34,4 +34,16 @@ struct TrunkSplit : public SegmentTrunk
     TrunkSplit(Coords, std::shared_ptr<Constraints>);
 };
 
+struct TrunkArmLeft : public SegmentTrunk
+{
+    void choose_next_segments() override;
+    TrunkArmLeft(Coords, std::shared_ptr<Constraints>);
+};
+
+struct TrunkArmRight : public SegmentTrunk
+{
+    void choose_next_segments() override;
+    TrunkArmRight(Coords, std::shared_ptr<Constraints>);
+};
+
 #endif

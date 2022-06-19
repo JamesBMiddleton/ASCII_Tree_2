@@ -47,7 +47,7 @@ void ArmLeft::choose_next_segments()
             next_segs.push_back(std::unique_ptr<Segment>{new ArmLeft{{coords.x-1, coords.y+1}, constraints}});
             break;
         case 2:
-            next_segs.push_back(std::unique_ptr<Segment>{new ArmRight{{coords.x, coords.y+1}, constraints}});
+            next_segs.push_back(std::unique_ptr<Segment>{new ArmRight{{coords.x+1, coords.y+1}, constraints}});
             break;
     }
 }
@@ -69,10 +69,10 @@ void ArmRight::choose_next_segments()
             next_segs.push_back(std::unique_ptr<Segment>{new ArmStraight{{coords.x, coords.y+1}, constraints}});
             break;
         case 1:
-            next_segs.push_back(std::unique_ptr<Segment>{new ArmLeft{{coords.x-1, coords.y+1}, constraints}});
+            next_segs.push_back(std::unique_ptr<Segment>{new ArmLeft{{coords.x, coords.y+1}, constraints}});
             break;
         case 2:
-            next_segs.push_back(std::unique_ptr<Segment>{new ArmRight{{coords.x, coords.y+1}, constraints}});
+            next_segs.push_back(std::unique_ptr<Segment>{new ArmRight{{coords.x+1, coords.y+1}, constraints}});
             break;
     }
 }
