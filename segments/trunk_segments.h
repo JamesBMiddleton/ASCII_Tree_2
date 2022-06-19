@@ -7,6 +7,8 @@ struct SegmentTrunk : public Segment
 {
 protected:
     SegmentTrunk(Coords, std::string, std::shared_ptr<Constraints>);
+    enum class Choice{Straight, Left, Right, Split, ArmLeft, ArmRight};
+    void choose_trunk_segment(std::map<Choice, int>, std::map<Choice, Coords>);
 };
 
 struct TrunkStraight : public SegmentTrunk

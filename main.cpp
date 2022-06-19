@@ -26,7 +26,8 @@ int main(int argc, char* argv[])
     return 1;
 }
 
-// current choose_segment implementation involves a lot of copied code... there must be a better
-// solution. I hope its not an inherent problem with the design.
+// I need a better way to implement choose_next_segments()
+// There raffle and choice thing introduces magic literals
+// I'm copying so much code which is a sign the design is bad... :(
 
 // Arm coords need tweaking.
