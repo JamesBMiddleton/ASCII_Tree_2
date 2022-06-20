@@ -26,8 +26,9 @@ int main(int argc, char* argv[])
     return 1;
 }
 
+
+// Bug: segments wrapping to 0,0 sometimes.
+
 // I need a better way to implement choose_next_segments()
 // There raffle and choice thing introduces magic literals
 // I'm copying so much code which is a sign the design is bad... :(
-
-// Arm coords need tweaking.

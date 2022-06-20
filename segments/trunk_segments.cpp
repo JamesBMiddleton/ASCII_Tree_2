@@ -14,7 +14,7 @@ void SegmentTrunk::choose_trunk_segment(std::map<Choice, int> probability, std::
         while (it.second--)
             raffle.push_back(it.first);
     }
-    int winner = rand() % (raffle.size() -1);
+    int winner = rand() % (raffle.size());
     switch (raffle[winner])
     {
         case Choice::Straight:
