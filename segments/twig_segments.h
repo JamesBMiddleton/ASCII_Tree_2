@@ -8,7 +8,7 @@ struct SegmentTwig : public Segment
 {
 protected:
     SegmentTwig(Coords, std::string, std::shared_ptr<Constraints>);
-    enum class Choice{Straight, Left, Right};
+    enum class Choice{Straight, Left, Right, Split, SplitFlatLeft, SplitFlatRight};
     void choose_twig_segment(std::map<Choice, int>, std::map<Choice, Coords>);
 };
 
@@ -30,5 +30,26 @@ struct TwigRight : public SegmentTwig
     void choose_next_segments() override;
     TwigRight(Coords, std::shared_ptr<Constraints>);
 };
+
+struct TwigSplit : public SegmentTwig
+{
+    void choose_next_segments() override;
+    TwigSplit(Coords, std::shared_ptr<Constraints>);
+};
+
+
+struct TwigSplitFlatLeft : public SegmentTwig
+{
+    void choose_next_segments() override;
+    TwigSplitFlatLeft(Coords, std::shared_ptr<Constraints>);
+};
+
+struct TwigSplitFlatRight : public SegmentTwig
+{
+    void choose_next_segments() override;
+    TwigSplitFlatRight(Coords, std::shared_ptr<Constraints>);
+};
+
+
 
 #endif

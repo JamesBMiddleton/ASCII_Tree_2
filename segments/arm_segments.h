@@ -43,17 +43,17 @@ struct ArmTaperRight : public SegmentArm
     ArmTaperRight(Coords, std::shared_ptr<Constraints>); 
 };
 
-// struct ArmTwigLeft : public SegmentArm
-// {
-//     void choose_next_segments() override;
-//     ArmTwigLeft(Coords, std::shared_ptr<Constraints>);
-// };
+struct ArmTwigLeft : public SegmentArm
+{
+    void choose_next_segments() override;
+    ArmTwigLeft(Coords, std::shared_ptr<Constraints>);
+};
 
-// struct ArmTwigRight : public SegmentArm
-// {
-//     void choose_next_segments() override;
-//     ArmTwigRight(Coords, std::shared_ptr<Constraints>);
-// };
+struct ArmTwigRight : public SegmentArm
+{
+    void choose_next_segments() override;
+    ArmTwigRight(Coords, std::shared_ptr<Constraints>);
+};
 
 #endif
 

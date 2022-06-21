@@ -13,7 +13,7 @@ struct TERMINAL_INFO
 namespace ANSI
 {
     const std::string CSI = "\x1b[";
-    const std::string HIDE_CURSOR = CSI + "25l";
+    const std::string HIDE_CURSOR = CSI + "?25l";
     const std::string SHOW_CURSOR = CSI + "?25h";
     const std::string RESET_COLOUR = CSI + 'm';
 

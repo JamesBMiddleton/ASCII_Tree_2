@@ -32,6 +32,12 @@ void SegmentArm::choose_arm_segment(std::map<Choice, int> probability, std::map<
         case Choice::TaperRight:
             next_segs.push_back(std::unique_ptr<Segment>{new ArmTaperRight{adj_coords[Choice::TaperRight], constraints}});
             break;
+        case Choice::TwigLeft:
+            next_segs.push_back(std::unique_ptr<Segment>{new ArmTwigLeft{adj_coords[Choice::TwigLeft], constraints}});
+            break;
+        case Choice::TwigRight:
+            next_segs.push_back(std::unique_ptr<Segment>{new ArmTwigRight{adj_coords[Choice::TwigRight], constraints}});
+            break;
     }
 }
 
@@ -46,11 +52,16 @@ void ArmStraight::choose_next_segments()
                                     {Choice::Left, 1},
                                     {Choice::Right, 1},
                                     {Choice::TaperLeft, 1},
-                                    {Choice::TaperRight, 1}};
+                                    {Choice::TaperRight, 1},
+                                    {Choice::TwigLeft, 1},
+                                    {Choice::TwigRight, 1}};
     std::map<Choice, Coords> adj_coords {{Choice::Straight, {coords.x, coords.y+1}},
                                         {Choice::Left, {coords.x-1, coords.y+1}},
                                         {Choice::Right, {coords.x+1, coords.y+1}},
-                                        {Choice::TaperLeft, {coords.x, coords.y+1}}};
+                                        {Choice::TaperLeft, {coords.x, coords.y+1}},
+                                        {Choice::TaperRight, {coords.x+1, coords.y+1}},
+                                        {Choice::TwigLeft, {coords.x, coords.y+1}},
+                                        {Choice::TwigRight, {coords.x, coords.y+1}}};
     choose_arm_segment(probability, adj_coords);
 }
 
@@ -63,10 +74,12 @@ void ArmLeft::choose_next_segments()
 {
     std::map<Choice, int> probability {{Choice::Straight, 1},
                                     {Choice::Left, 1},
-                                    {Choice::TaperLeft, 1}};
+                                    {Choice::TaperLeft, 3},
+                                    {Choice::TwigRight, 1}};
     std::map<Choice, Coords> adj_coords {{Choice::Straight, {coords.x, coords.y+1}},
                                         {Choice::Left, {coords.x-1, coords.y+1}},
-                                        {Choice::TaperLeft, {coords.x, coords.y+1}}};
+                                        {Choice::TaperLeft, {coords.x, coords.y+1}},
+                                        {Choice::TwigRight, {coords.x-1, coords.y+1}}};
     choose_arm_segment(probability, adj_coords);
 }
 
@@ -80,10 +93,12 @@ void ArmRight::choose_next_segments()
 {
     std::map<Choice, int> probability {{Choice::Straight, 1},
                                     {Choice::Right, 1},
-                                    {Choice::TaperRight, 1}};
+                                    {Choice::TaperRight, 3},
+                                    {Choice::TwigLeft, 1}};
     std::map<Choice, Coords> adj_coords {{Choice::Straight, {coords.x, coords.y+1}},
                                         {Choice::Right, {coords.x+1, coords.y+1}},
-                                        {Choice::TaperRight, {coords.x+1, coords.y+1}}};
+                                        {Choice::TaperRight, {coords.x+1, coords.y+1}},
+                                        {Choice::TwigLeft, {coords.x, coords.y+1}}};
     choose_arm_segment(probability, adj_coords);
 }
 
@@ -115,4 +130,29 @@ void ArmTaperRight::choose_next_segments()
         next_segs.push_back(std::unique_ptr<Segment>{new TwigRight{{coords.x+1, coords.y+1}, constraints}});
     else
         next_segs.push_back(std::unique_ptr<Segment>{new TwigStraight{{coords.x+1, coords.y+1}, constraints}});
+}
+
+
+
+ArmTwigLeft::ArmTwigLeft(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
+    :SegmentArm{p_coords, "\\/ /", p_constraints}
+{}
+
+void ArmTwigLeft::choose_next_segments()
+{
+    next_segs.clear();
+    next_segs.push_back(std::unique_ptr<Segment>{new TwigLeft{{coords.x-1, coords.y+1}, constraints}});
+    next_segs.push_back(std::unique_ptr<Segment>{new ArmRight{{coords.x+2, coords.y+1}, constraints}});
+}
+
+
+ArmTwigRight::ArmTwigRight(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
+    :SegmentArm{p_coords, "\\ \\/", p_constraints}
+{}
+
+void ArmTwigRight::choose_next_segments()
+{
+    next_segs.clear();
+    next_segs.push_back(std::unique_ptr<Segment>{new ArmLeft{{coords.x-1, coords.y+1}, constraints}});
+    next_segs.push_back(std::unique_ptr<Segment>{new TwigRight{{coords.x+4, coords.y+1}, constraints}});
 }
