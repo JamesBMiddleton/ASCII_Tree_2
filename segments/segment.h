@@ -22,6 +22,8 @@ struct Constraints
 
     Colour wood;
     Colour leaves;
+
+    std::vector<std::vector<char>> segment_locations;
 };
 
 struct Segment

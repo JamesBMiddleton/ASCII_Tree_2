@@ -7,7 +7,12 @@ SegmentTrunk::SegmentTrunk(Coords p_coords, std::string p_glyph, std::shared_ptr
 
 void SegmentTrunk::choose_trunk_segment(std::map<Choice, int> probability, std::map<Choice, Coords> adj_coords)
 {
-    next_segs.clear();
+    if (coords.y >= constraints->max_trunk_height)
+    {
+        next_segs.push_back(std::unique_ptr<Segment>{new TrunkSplit{adj_coords[Choice::Split], constraints}});
+        return;
+    }
+
     std::vector<Choice> raffle;
     for (auto& it : probability)
     {
@@ -40,13 +45,27 @@ void SegmentTrunk::choose_trunk_segment(std::map<Choice, int> probability, std::
 
 TrunkStraight::TrunkStraight(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
     :SegmentTrunk{p_coords, "|   |", p_constraints}
-{}
+{
+    int n = rand() % 3;
+    switch (n)
+    {
+        case 0:
+            glyph = "|~  |";
+            break;
+        case 1:
+            glyph = "| ~ |";
+            break;
+        case 2:
+            glyph = "|  ~|";
+            break;
+    }
+}
 
 void TrunkStraight::choose_next_segments()
 {
-    std::map<Choice, int> probability {{Choice::Straight, 1},
-                                    {Choice::Left, 1},
-                                    {Choice::Right, 1}, 
+    std::map<Choice, int> probability {{Choice::Straight, 2},
+                                    {Choice::Left, 4},
+                                    {Choice::Right, 4}, 
                                     {Choice::Split, 1},
                                     {Choice::ArmLeft, 1},
                                     {Choice::ArmRight, 1}};
@@ -62,12 +81,26 @@ void TrunkStraight::choose_next_segments()
 
 TrunkLeft::TrunkLeft(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
     :SegmentTrunk{p_coords, "\\   \\", p_constraints}
-{}
+{
+    int n = rand() % 3;
+    switch (n)
+    {
+        case 0:
+            glyph = "\\~  \\";
+            break;
+        case 1:
+            glyph = "\\ ~ \\";
+            break;
+        case 2:
+            glyph = "\\  ~\\";
+            break;
+    }
+}
 
 void TrunkLeft::choose_next_segments()
 {
-    std::map<Choice, int> probability {{Choice::Straight, 1},
-                                    {Choice::Left, 1},
+    std::map<Choice, int> probability {{Choice::Straight, 2},
+                                    {Choice::Left, 4},
                                     {Choice::Split, 1},
                                     {Choice::ArmLeft, 1},
                                     {Choice::ArmRight, 1}};
@@ -81,12 +114,26 @@ void TrunkLeft::choose_next_segments()
 
 TrunkRight::TrunkRight(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
     :SegmentTrunk{p_coords, "/   /", p_constraints}
-{}
+{
+    int n = rand() % 3;
+    switch (n)
+    {
+        case 0:
+            glyph = "/~  /";
+            break;
+        case 1:
+            glyph = "/ ~ /";
+            break;
+        case 2:
+            glyph = "/  ~/";
+            break;
+    }
+}
 
 void TrunkRight::choose_next_segments()
 {
-    std::map<Choice, int> probability {{Choice::Straight, 1},
-                                    {Choice::Right, 1},
+    std::map<Choice, int> probability {{Choice::Straight, 2},
+                                    {Choice::Right, 4},
                                     {Choice::Split, 1},
                                     {Choice::ArmLeft, 1},
                                     {Choice::ArmRight, 1}};
@@ -100,7 +147,7 @@ void TrunkRight::choose_next_segments()
 
 
 TrunkSplit::TrunkSplit(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
-    :SegmentTrunk{p_coords, "\\ \\/ /", p_constraints}
+    :SegmentTrunk{p_coords, "\\~\\/~/", p_constraints}
 {}
 
 void TrunkSplit::choose_next_segments()
@@ -113,7 +160,24 @@ void TrunkSplit::choose_next_segments()
 
 TrunkArmLeft::TrunkArmLeft(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
     :SegmentTrunk{p_coords, "\\    /", p_constraints}
-{}
+{
+    int n = rand() % 4;
+    switch (n)
+    {
+        case 0:
+            glyph = "\\~   /";
+            break;
+        case 1:
+            glyph = "\\ ~  /";
+            break;
+        case 2:
+            glyph = "\\  ~ /";
+            break;
+        case 3:
+            glyph = "\\   ~/";
+            break;
+    }
+}
 
 void TrunkArmLeft::choose_next_segments()
 {
@@ -125,7 +189,24 @@ void TrunkArmLeft::choose_next_segments()
 
 TrunkArmRight::TrunkArmRight(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
     :SegmentTrunk{p_coords, "\\    /", p_constraints}
-{}
+{
+    int n = rand() % 4;
+    switch (n)
+    {
+        case 0:
+            glyph = "\\~   /";
+            break;
+        case 1:
+            glyph = "\\ ~  /";
+            break;
+        case 2:
+            glyph = "\\  ~ /";
+            break;
+        case 3:
+            glyph = "\\   ~/";
+            break;
+    }
+}
 
 void TrunkArmRight::choose_next_segments()
 {

@@ -17,7 +17,7 @@ void Tree::grow_branches()
    Moving rather than copying due to unique_ptrs to allow virtual calls to different segment types */
 {
     int n{15};
-    while (n--)
+    while (branch_pool.size())
     {   
         std::vector<std::unique_ptr<Segment>> new_pool;
         for (std::unique_ptr<Segment>& seg_ptr : branch_pool)

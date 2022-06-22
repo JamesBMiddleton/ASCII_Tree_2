@@ -18,18 +18,25 @@ void setup_screen(int x, int y)
 int main(int argc, char* argv[])
 {
     srand(time(NULL));
-    setup_screen(80, 24);
-    Constraints c{0,0,0,0, {0,0,0}, {0,0,0}};
-    Tree tree1{c, {10,3}};
-    tree1.grow_branches();
-    Tree tree2{c, {30,3}};
-    tree2.grow_branches();
-    Tree tree3{c, {50,3}};
-    tree3.grow_branches();
+    while (true)
+    {
+        setup_screen(80, 24);
+        Constraints c{0,12,16,0, {0,0,0}, {0,0,0}, {24, std::vector<char>(80, '0')}};
+
+        Tree tree1{c, {10,1}};
+        tree1.grow_branches();
+        Tree tree2{c, {35,1}};
+        tree2.grow_branches();
+        Tree tree3{c, {60,1}};
+        tree3.grow_branches();
+        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    }
     std::cout << ANSI::move_cursor(1, 1) << ANSI::SHOW_CURSOR << ANSI::RESET_COLOUR;
     return 1;
 }
 
+
+// Make leaves segments for more natural looking growth.
 
 // I can't create different types of trees when the real constraints are magic constants in 
 // every individual choose_next_segments() implementation.

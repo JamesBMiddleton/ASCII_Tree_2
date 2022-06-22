@@ -12,6 +12,12 @@ void Segment::draw_segment()
     std::cout << ANSI::move_cursor(coords.x, coords.y);
     std::cout << ANSI::set_colour(161,61,45) << glyph;
     std::cout.flush();
+    for (int i{0}; i<glyph.size(); i++)
+        constraints->segment_locations[coords.y][coords.x+i] = glyph[i];
+    
+    // for (int i{0}; i<constraints->segment_locations.size(); ++i)
+    //     for (int j{0}; j<constraints->segment_locations[0].size(); ++j)
+    //         std::cout << constraints->segment_locations[i][j]; 
 }
 
 
