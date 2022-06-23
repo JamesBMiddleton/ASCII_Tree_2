@@ -36,7 +36,9 @@ int main(int argc, char* argv[])
 }
 
 
-// Make leaves segments for more natural looking growth.
+// Make leaves segments
+// fix segmentation fault?
+// add hollow
 
 // I can't create different types of trees when the real constraints are magic constants in 
 // every individual choose_next_segments() implementation.

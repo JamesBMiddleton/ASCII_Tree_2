@@ -11,6 +11,7 @@ protected:
     SegmentTwig(Coords, std::string, std::shared_ptr<Constraints>, bool);
     enum class Choice{Straight, Left, Right, FlatLeft, FlatRight, Split, SplitFlatLeft, SplitFlatRight};
     void choose_twig_segment(std::map<Choice, int>, std::map<Choice, Coords>, bool);
+    void add_leaves();
     bool is_terminating = false;
 };
 
@@ -64,4 +65,22 @@ struct TwigSplitFlatRight : public SegmentTwig
     TwigSplitFlatRight(Coords, std::shared_ptr<Constraints>, bool);
 };
 
+
+
+
+
+struct LeafGroup : public Segment
+{
+    LeafGroup(Coords, std::shared_ptr<Constraints>, std::vector<Coords>, bool);
+    std::vector<Coords> leaf_coords;
+    void choose_next_segments() override;
+    void draw_segment() override;
+    bool is_terminating = false;
+};
+
 #endif
+
+
+    //  &&&&&   
+    // &&&\&&&
+    //  &&&&&
