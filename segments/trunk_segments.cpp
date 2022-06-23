@@ -53,7 +53,8 @@ TrunkStraight::TrunkStraight(Coords p_coords, std::shared_ptr<Constraints> p_con
             glyph = "|~  |";
             break;
         case 1:
-            glyph = "| ~ |";
+            glyph = (!constraints->has_hollow && coords.y > 5)? "| @ |" : "| ~ |";
+            constraints->has_hollow = true;
             break;
         case 2:
             glyph = "|  ~|";
@@ -82,14 +83,15 @@ void TrunkStraight::choose_next_segments()
 TrunkLeft::TrunkLeft(Coords p_coords, std::shared_ptr<Constraints> p_constraints)
     :SegmentTrunk{p_coords, "\\   \\", p_constraints}
 {
-    int n = rand() % 3;
+    int n = rand() % 4;
     switch (n)
     {
         case 0:
             glyph = "\\~  \\";
             break;
         case 1:
-            glyph = "\\ ~ \\";
+            glyph = (!constraints->has_hollow && coords.y > 5)? "\\ @ \\" : "\\ ~ \\";
+            constraints->has_hollow = true;
             break;
         case 2:
             glyph = "\\  ~\\";
@@ -122,7 +124,8 @@ TrunkRight::TrunkRight(Coords p_coords, std::shared_ptr<Constraints> p_constrain
             glyph = "/~  /";
             break;
         case 1:
-            glyph = "/ ~ /";
+            glyph = (!constraints->has_hollow && coords.y > 5)? "/ @ /" : "/ ~ /";
+            constraints->has_hollow = true;
             break;
         case 2:
             glyph = "/  ~/";

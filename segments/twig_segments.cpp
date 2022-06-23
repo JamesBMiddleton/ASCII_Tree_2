@@ -10,24 +10,6 @@ SegmentTwig::SegmentTwig(Coords p_coords, std::string p_glyph, std::shared_ptr<C
     is_terminating = p_terminate;
 }
 
-void SegmentTwig::draw_segment()
-{
-    Segment::draw_segment();
-    // static std::vector<Coords> leaf_coords {
-    //     {0,-1}, {0,1}, {-1,0}, {1,0}, {1,1}, {-1,-1}, {1,-1}, {-1,1}, {1,2}, {-2, 1}, {-1, -2}, {-1, 2},
-    //     {1, -2}, {-1, -3}, {-1, 3}, {0, -2}, {0, 2}, {-2, 0}, {-2, 2}, {0, -3},{-2, -1}, {-2, -2}, {0, 3}};
-    // for (Coords leaf_coord : leaf_coords)
-    // {
-    //     if (constraints->segment_locations[coords.y + leaf_coord.x][coords.x + leaf_coord.y] == '0')
-    //     {
-    //         std::cout << ANSI::move_cursor(coords.x+leaf_coord.y, coords.y+leaf_coord.x);
-    //         std::cout << ANSI::set_colour(45,90,39) << '&';
-    //         std::cout.flush();
-    //         std::this_thread::sleep_for(std::chrono::milliseconds(20));
-    //     }
-    // }
-}
-
 void SegmentTwig::choose_twig_segment(std::map<Choice, int> probability, std::map<Choice, Coords> adj_coords, bool terminate=false)
 {
     std::vector<Choice> raffle;
@@ -175,6 +157,10 @@ void TwigSplit::choose_next_segments()
     probability = {{Choice::FlatRight, 1},
                 {Choice::Split, 1},
                 {Choice::Right, 1}};
+
+    if ((*(next_segs.end()-1))->get_glyph() == "\\/")   // disgusting pointer deferencing 
+        probability[Choice::Split] = 0;                 // avoid splitting twice - looks messy.
+
     adj_coords = {{Choice::FlatRight, {coords.x+2, coords.y+1}},
                 {Choice::Split, {coords.x+1, coords.y+1}},
                 {Choice::Right, {coords.x+2, coords.y+1}}};
@@ -243,7 +229,6 @@ void LeafGroup::draw_segment()
             std::cout << ANSI::set_colour(45,90,39) << glyph;
             constraints->segment_locations[coords.y][coords.x] = glyph[0]; // !
             std::cout.flush();
-            // std::this_thread::sleep_for(std::chrono::milliseconds(20));
         }
     }
 }

@@ -36,18 +36,6 @@ int main(int argc, char* argv[])
 }
 
 
-// Make leaves segments
-// fix segmentation fault?
-// add hollow
-
-// I can't create different types of trees when the real constraints are magic constants in 
-// every individual choose_next_segments() implementation.
-
-// I need to have a brain storm about ensuring separation between twig segments,
-// and spreading the tree out further.
-// Once we go into twigs, it need to be local groupings of twigs, trying to expand out more than up
-// Maybe completely remove single twigs, only have split ones that create more splits
-
-// I need a better way to implement choose_next_segments()
-// There raffle and choice thing introduces magic literals
-// I'm copying so much code which is a sign the design is bad... :(
+// tweak probabilities
+// tweak which twigs follow others
+// fix segmentation fault when leaving screen?

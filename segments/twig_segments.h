@@ -7,7 +7,6 @@
 struct SegmentTwig : public Segment
 {
 protected:
-    void draw_segment() override;
     SegmentTwig(Coords, std::string, std::shared_ptr<Constraints>, bool);
     enum class Choice{Straight, Left, Right, FlatLeft, FlatRight, Split, SplitFlatLeft, SplitFlatRight};
     void choose_twig_segment(std::map<Choice, int>, std::map<Choice, Coords>, bool);
@@ -79,8 +78,3 @@ struct LeafGroup : public Segment
 };
 
 #endif
-
-
-    //  &&&&&   
-    // &&&\&&&
-    //  &&&&&
