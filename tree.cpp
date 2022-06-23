@@ -1,14 +1,11 @@
 #include "tree.h"
-#include "segments/segment_base.h"
 
-
-
-Tree::Tree(Constraints constraints)
+Tree::Tree(Constraints constraints, Coords start_coords)
     :branch_pool{}
 {
     branch_pool.push_back(
         std::unique_ptr<Segment>{new SegmentBase{
-            {10, 10},
+            start_coords,
             std::shared_ptr<Constraints>{new Constraints{constraints}}}}     // This is messy... also should be using 'make_shared/unique'.
     );
 }
@@ -19,8 +16,8 @@ void Tree::grow_branches()
    branch_pool via new_pool.
    Moving rather than copying due to unique_ptrs to allow virtual calls to different segment types */
 {
-    int n{10};
-    while (n--)
+    int n{15};
+    while (branch_pool.size())
     {   
         std::vector<std::unique_ptr<Segment>> new_pool;
         for (std::unique_ptr<Segment>& seg_ptr : branch_pool)
@@ -33,7 +30,7 @@ void Tree::grow_branches()
                 std::make_move_iterator(temp.begin()),
                 std::make_move_iterator(temp.end())
             );
-            temp.clear();
+            temp.clear();    
         }
         branch_pool.clear();
         branch_pool.insert(
@@ -41,5 +38,6 @@ void Tree::grow_branches()
             std::make_move_iterator(new_pool.begin()),
             std::make_move_iterator(new_pool.end())
         );
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }

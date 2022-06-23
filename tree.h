@@ -4,15 +4,16 @@
 #include "segments/segment.h"
 
 #include <vector>
+#include <chrono>
+#include <thread>
 
 struct Tree
 {
     void grow_branches();
-    Tree(Constraints);
+    Tree(Constraints, Coords);
 private:
     Tree();
     std::vector<std::unique_ptr<Segment>> branch_pool;
-    //Constraints constraints;
 };
 
 #endif
