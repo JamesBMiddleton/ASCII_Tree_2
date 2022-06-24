@@ -4,7 +4,12 @@
 Segment::Segment(Coords p_coords, std::string p_glyph, std::shared_ptr<Constraints> p_constraints)
     :coords{p_coords}, glyph{p_glyph}, constraints{p_constraints}
 {
-
+    if (coords.x >= TERMINAL_INFO::max_width)
+        coords.x = TERMINAL_INFO::max_width-1;
+    if (coords.x < 0)
+        coords.x = 0;
+    if (coords.y >= TERMINAL_INFO::max_height)
+        coords.y = TERMINAL_INFO::max_height-1;
 }
 
 void Segment::draw_segment()

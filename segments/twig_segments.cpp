@@ -192,7 +192,15 @@ void TwigSplitFlatRight::choose_next_segments()
 LeafGroup::LeafGroup(Coords p_coords, std::shared_ptr<Constraints> p_constraints, std::vector<Coords> p_leaf_coords, bool p_terminate=false)
     :Segment{p_coords, "&", p_constraints}, leaf_coords{p_leaf_coords}, is_terminating{p_terminate} 
 {
-
+    for (Coords& leaf : leaf_coords)
+    {
+        if (leaf.x >= TERMINAL_INFO::max_width)
+            leaf.x = TERMINAL_INFO::max_width-1;
+        if (leaf.x < 0)
+            leaf.x = 0;
+        if (leaf.y >= TERMINAL_INFO::max_height)
+            leaf.y = TERMINAL_INFO::max_height-1;
+    }
 }
 
 void LeafGroup::choose_next_segments()

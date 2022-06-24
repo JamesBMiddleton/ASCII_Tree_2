@@ -16,26 +16,43 @@ void setup_screen(int x, int y)
 }
 
 int main(int argc, char* argv[])
-{
+{ 
     srand(time(NULL));
+    const int tree_num = 3;
+    const int width = 80;
+    const int height = 24;
+    const int max_trunk_height = height / 2;
+    const int max_arm_height = (height / 3) * 2;
+    
+    const int border = 10;
+    const int tree_x_interval = width / tree_num; //((width - (border*2)) / tree_num) + 3;
+
+    Constraints c{0,
+        max_trunk_height,
+        max_arm_height,
+        0,
+        {0,0,0},
+        {0,0,0},
+        {height, std::vector<char>(width, '0')}
+    };
+
     while (true)
     {
-        setup_screen(80, 24);
-        Constraints c{0,12,16,0, {0,0,0}, {0,0,0}, {24, std::vector<char>(80, '0')}};
-
-        Tree tree1{c, {10,1}};
-        tree1.grow_branches();
-        Tree tree2{c, {35,1}};
-        tree2.grow_branches();
-        Tree tree3{c, {60,1}};
-        tree3.grow_branches();
+        setup_screen(width, height);
+        int x_pos = border;
+        for (int i{0}; i<tree_num; ++i)
+        {
+            Tree tree{c, {x_pos,1}};
+            tree.grow_branches();
+            x_pos += tree_x_interval;
+        }
         std::this_thread::sleep_for(std::chrono::milliseconds(5000));
     }
     std::cout << ANSI::move_cursor(1, 1) << ANSI::SHOW_CURSOR << ANSI::RESET_COLOUR;
-    return 1;
+    return 0;
 }
 
 
-// tweak probabilities
-// tweak which twigs follow others
-// fix segmentation fault when leaving screen?
+// grab screen size automatically
+// allow num of trees to be specified
+// fix spacing between different number of trees
