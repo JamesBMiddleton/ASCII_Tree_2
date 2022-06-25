@@ -20,6 +20,7 @@ void Segment::draw_segment()
     for (int i{0}; i<glyph.size(); i++)
         constraints->segment_locations[coords.y][coords.x+i] = glyph[i];
     
+    // Show the segment matrix for debugging.
     // for (int i{0}; i<constraints->segment_locations.size(); ++i)
     //     for (int j{0}; j<constraints->segment_locations[0].size(); ++j)
     //         std::cout << constraints->segment_locations[i][j]; 

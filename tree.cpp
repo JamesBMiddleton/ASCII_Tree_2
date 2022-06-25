@@ -1,20 +1,21 @@
 #include "tree.h"
 
 Tree::Tree(Constraints constraints, Coords start_coords)
+// Add the first segment to the branch pool - a SegmentBase.
     :branch_pool{}
 {
     branch_pool.push_back(
         std::unique_ptr<Segment>{new SegmentBase{
             start_coords,
-            std::shared_ptr<Constraints>{new Constraints{constraints}}}}     // This is messy... also should be using 'make_shared/unique'.
+            std::shared_ptr<Constraints>{new Constraints{constraints}}}}     // C++11 so not using make_unique/make_shared.
     );
 }
 
 void Tree::grow_branches()
-/* The main program loop.
-   Draws the segments in the branch_pool and moves the next segments chosen by each segment into
-   branch_pool via new_pool.
-   Moving rather than copying due to unique_ptrs to allow virtual calls to different segment types */
+/* Loop: Draws the segments in the branch_pool and moves the next segments chosen by each segment (if any)
+   into branch_pool via new_pool.
+   Moving rather than copying due to unique_ptrs to allow virtual calls to different segment types
+   Loop ends when branch_pool is empty. */
 {
     int n{15};
     while (branch_pool.size())

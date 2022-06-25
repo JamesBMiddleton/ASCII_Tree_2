@@ -23,7 +23,6 @@ namespace ANSI
         {std::ostringstream oss; oss << CSI << "38;2;" << r << ';' << g << ';' << b << 'm'; return oss.str();}
 }
 
-// should inline functions be all caps? "MOVE_CURSOR"?
-// I need to know the width and height of the screen in multiple files... I'm not sure whether TERMINAL_INFO is a good solution...
+// Unsure whether should inline functions be all caps? "MOVE_CURSOR"?
 
 #endif

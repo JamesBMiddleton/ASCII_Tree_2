@@ -29,6 +29,7 @@ struct Constraints
 };
 
 struct Segment
+// Abstract base class for all Segment types.
 {   
     virtual ~Segment() {};
     virtual void choose_next_segments() = 0;

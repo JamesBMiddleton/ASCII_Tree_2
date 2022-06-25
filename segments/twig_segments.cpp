@@ -158,7 +158,7 @@ void TwigSplit::choose_next_segments()
                 {Choice::Split, 1},
                 {Choice::Right, 1}};
 
-    if ((*(next_segs.end()-1))->get_glyph() == "\\/")   // disgusting pointer deferencing 
+    if ((*(next_segs.end()-1))->get_glyph() == "\\/")   // ugly pointer dereferencing
         probability[Choice::Split] = 0;                 // avoid splitting twice - looks messy.
 
     adj_coords = {{Choice::FlatRight, {coords.x+2, coords.y+1}},
@@ -204,6 +204,9 @@ LeafGroup::LeafGroup(Coords p_coords, std::shared_ptr<Constraints> p_constraints
 }
 
 void LeafGroup::choose_next_segments()
+// Needs a cleaner implementation...
+// Summary: on first call, update coords of current 4 leaves add another two leaves.
+//          on second call, update coords of all 6 leaves and terminate.
 {
     if (is_terminating)
         return;
