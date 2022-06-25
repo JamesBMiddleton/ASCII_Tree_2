@@ -16,30 +16,33 @@ void setup_screen(int x, int y)
 }
 
 int main(int argc, char* argv[])
-{ 
-    srand(time(NULL));
-    const int tree_num = 3;
+{
     const int width = 80;
     const int height = 24;
-    const int max_trunk_height = height / 2;
-    const int max_arm_height = (height / 3) * 2;
     
-    const int border = 10;
-    const int tree_x_interval = width / tree_num; //((width - (border*2)) / tree_num) + 3;
+    srand(time(NULL));
+    int tree_num = 3;
+    for (int i{0}; i<argc; ++i)
+    {
+        std::string arg = std::string(argv[i]);
+        if (arg == "--seed")
+            srand(std::stoi(argv[i+1]));
+        if (arg == "--tree_num")
+            tree_num = std::stoi(argv[i+1]);
+    }
 
-    Constraints c{0,
-        max_trunk_height,
-        max_arm_height,
-        0,
-        {0,0,0},
-        {0,0,0},
-        {height, std::vector<char>(width, '0')}
-    };
+    const int x_border = width/5;
+    const int adj_width = width - (2*x_border);
+    const int tree_x_interval = (tree_num > 1)? adj_width / (tree_num -1) : 0;
+
+    Constraints c{0, height / 2, (height / 3) * 2, 0, {0,0,0}, {0,0,0},
+                {height, std::vector<char>(width, '0')}};
 
     while (true)
     {
         setup_screen(width, height);
-        int x_pos = border;
+        int x_pos = (tree_num > 1)? x_border : width/2;
+        x_pos -= 3;
         for (int i{0}; i<tree_num; ++i)
         {
             Tree tree{c, {x_pos,1}};
@@ -54,5 +57,3 @@ int main(int argc, char* argv[])
 
 
 // grab screen size automatically
-// allow num of trees to be specified
-// fix spacing between different number of trees
