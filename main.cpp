@@ -16,7 +16,7 @@ void setup_screen(int x, int y)
 
 int main(int argc, char* argv[])
 {
-    const int width = 80;
+    const int width = 106;
     const int height = 24;
     
     srand(time(NULL));
@@ -35,6 +35,7 @@ int main(int argc, char* argv[])
 
     while (true)
     {
+        std::this_thread::sleep_for(std::chrono::milliseconds(110));
         setup_screen(width, height);
         Forest forest{tree_num, width, height, c};
         forest.grow_trees(110);
