@@ -1,4 +1,4 @@
-#include "tree.h"
+#include "forest.h"
 
 #include <chrono>
 
@@ -11,8 +11,7 @@ void setup_screen(int x, int y)
     TERMINAL_INFO::max_height = y;
     int total{x*y};
     std::string s(total, ' ');
-    std::cout << s << ANSI::HIDE_CURSOR;
-    std::cout.flush();
+    std::cout << std::flush << s << std::flush << ANSI::HIDE_CURSOR << std::flush;
 }
 
 int main(int argc, char* argv[])
@@ -31,24 +30,14 @@ int main(int argc, char* argv[])
             tree_num = std::stoi(argv[i+1]);
     }
 
-    const int x_border = width/5;
-    const int adj_width = width - (2*x_border);
-    const int tree_x_interval = (tree_num > 1)? adj_width / (tree_num -1) : 0;
-
     Constraints c{0, height / 2, (height / 3) * 2, 0, 
                 {height, std::vector<char>(width, '0')}};
 
     while (true)
     {
         setup_screen(width, height);
-        int x_pos = (tree_num > 1)? x_border : width/2;
-        x_pos -= 3;
-        for (int i{0}; i<tree_num; ++i)
-        {
-            Tree tree{c, {x_pos,1}};
-            tree.grow_branches();
-            x_pos += tree_x_interval;
-        }
+        Forest forest{tree_num, width, height, c};
+        forest.grow_trees(110);
         std::this_thread::sleep_for(std::chrono::milliseconds(5000));
     }
     std::cout << ANSI::move_cursor(1, 1) << ANSI::SHOW_CURSOR << ANSI::RESET_COLOUR;

@@ -11,6 +11,7 @@ struct Tree
 // Each instance holds a pool of segments, one for each branch of a tree.
 {
     void grow_branches();
+    bool is_finished() {return branch_pool.size() == 0;}
     Tree(Constraints, Coords);
 private:
     Tree();

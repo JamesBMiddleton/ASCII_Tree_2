@@ -15,8 +15,7 @@ Segment::Segment(Coords p_coords, std::string p_glyph, std::shared_ptr<Constrain
 void Segment::draw_segment()
 {
     std::cout << ANSI::move_cursor(coords.x, coords.y);
-    std::cout << ANSI::set_colour(161,61,45) << glyph;
-    std::cout.flush();
+    std::cout << ANSI::set_colour(161,61,45) << glyph << std::flush;
     for (int i{0}; i<glyph.size(); i++)
         constraints->segment_locations[coords.y][coords.x+i] = glyph[i];
     
