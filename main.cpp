@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
     const int adj_width = width - (2*x_border);
     const int tree_x_interval = (tree_num > 1)? adj_width / (tree_num -1) : 0;
 
-    Constraints c{0, height / 2, (height / 3) * 2, 0, {0,0,0}, {0,0,0},
+    Constraints c{0, height / 2, (height / 3) * 2, 0, 
                 {height, std::vector<char>(width, '0')}};
 
     while (true)

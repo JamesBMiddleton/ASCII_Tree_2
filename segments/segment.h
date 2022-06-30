@@ -11,17 +11,12 @@
 
 struct Coords {int x, y;};
 
-struct Colour {int r, g, b;};
-
 struct Constraints
 {
     int max_height;
     int max_trunk_height;
     int max_arm_height;
     int max_twig_height;
-
-    Colour wood;
-    Colour leaves;
 
     std::vector<std::vector<char>> segment_locations;
 
