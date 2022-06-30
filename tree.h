@@ -4,15 +4,17 @@
 #include "segments/segment.h"
 
 #include <vector>
+#include <chrono>
+#include <thread>
 
 struct Tree
+// Each instance holds a pool of segments, one for each branch of a tree.
 {
     void grow_branches();
-    Tree(Constraints);
+    Tree(Constraints, Coords);
 private:
     Tree();
     std::vector<std::unique_ptr<Segment>> branch_pool;
-    //Constraints constraints;
 };
 
 #endif

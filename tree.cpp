@@ -1,26 +1,24 @@
 #include "tree.h"
-#include "segments/segment_base.h"
 
-
-
-Tree::Tree(Constraints constraints)
+Tree::Tree(Constraints constraints, Coords start_coords)
+// Add the first segment to the branch pool - a SegmentBase.
     :branch_pool{}
 {
     branch_pool.push_back(
         std::unique_ptr<Segment>{new SegmentBase{
-            {10, 10},
-            std::shared_ptr<Constraints>{new Constraints{constraints}}}}     // This is messy... also should be using 'make_shared/unique'.
+            start_coords,
+            std::shared_ptr<Constraints>{new Constraints{constraints}}}}     // C++11 so not using make_unique/make_shared.
     );
 }
 
 void Tree::grow_branches()
-/* The main program loop.
-   Draws the segments in the branch_pool and moves the next segments chosen by each segment into
-   branch_pool via new_pool.
-   Moving rather than copying due to unique_ptrs to allow virtual calls to different segment types */
+/* Loop: Draws the segments in the branch_pool and moves the next segments chosen by each segment (if any)
+   into branch_pool via new_pool.
+   Moving rather than copying due to unique_ptrs to allow virtual calls to different segment types
+   Loop ends when branch_pool is empty. */
 {
-    int n{10};
-    while (n--)
+    int n{15};
+    while (branch_pool.size())
     {   
         std::vector<std::unique_ptr<Segment>> new_pool;
         for (std::unique_ptr<Segment>& seg_ptr : branch_pool)
@@ -33,7 +31,7 @@ void Tree::grow_branches()
                 std::make_move_iterator(temp.begin()),
                 std::make_move_iterator(temp.end())
             );
-            temp.clear();
+            temp.clear();    
         }
         branch_pool.clear();
         branch_pool.insert(
@@ -41,5 +39,6 @@ void Tree::grow_branches()
             std::make_move_iterator(new_pool.begin()),
             std::make_move_iterator(new_pool.end())
         );
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
