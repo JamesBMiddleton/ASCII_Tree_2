@@ -237,9 +237,8 @@ void LeafGroup::draw_segment()
         if (constraints->segment_locations[leaf.y][leaf.x] == '0')
         {
             std::cout << ANSI::move_cursor(leaf.x, leaf.y);
-            std::cout << ANSI::set_colour(45,90,39) << glyph;
+            std::cout << ANSI::set_colour(45,90,39) << glyph << std::flush;
             constraints->segment_locations[coords.y][coords.x] = glyph[0]; // !
-            std::cout.flush();
         }
     }
 }

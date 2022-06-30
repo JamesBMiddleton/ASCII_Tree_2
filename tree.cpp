@@ -17,28 +17,23 @@ void Tree::grow_branches()
    Moving rather than copying due to unique_ptrs to allow virtual calls to different segment types
    Loop ends when branch_pool is empty. */
 {
-    int n{15};
-    while (branch_pool.size())
-    {   
-        std::vector<std::unique_ptr<Segment>> new_pool;
-        for (std::unique_ptr<Segment>& seg_ptr : branch_pool)
-        {
-            seg_ptr->draw_segment();
-            seg_ptr->choose_next_segments();
-            std::vector<std::unique_ptr<Segment>>& temp = seg_ptr->get_next_segments();
-            new_pool.insert(
-                new_pool.end(),
-                std::make_move_iterator(temp.begin()),
-                std::make_move_iterator(temp.end())
-            );
-            temp.clear();    
-        }
-        branch_pool.clear();
-        branch_pool.insert(
-            branch_pool.end(),
-            std::make_move_iterator(new_pool.begin()),
-            std::make_move_iterator(new_pool.end())
+    std::vector<std::unique_ptr<Segment>> new_pool;
+    for (std::unique_ptr<Segment>& seg_ptr : branch_pool)
+    {
+        seg_ptr->draw_segment();
+        seg_ptr->choose_next_segments();
+        std::vector<std::unique_ptr<Segment>>& temp = seg_ptr->get_next_segments();
+        new_pool.insert(
+            new_pool.end(),
+            std::make_move_iterator(temp.begin()),
+            std::make_move_iterator(temp.end())
         );
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        temp.clear();    
     }
+    branch_pool.clear();
+    branch_pool.insert(
+        branch_pool.end(),
+        std::make_move_iterator(new_pool.begin()),
+        std::make_move_iterator(new_pool.end())
+    );
 }
