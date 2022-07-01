@@ -1,4 +1,5 @@
-#include "forest.h"
+#include "Forest/forest.h"
+#include "Forest/terminal_abstractions.h"
 
 #include <chrono>
 
@@ -16,7 +17,7 @@ void setup_screen(int x, int y)
 
 int main(int argc, char* argv[])
 {
-    const int width = 106;
+    const int width = 80;
     const int height = 24;
     
     srand(time(NULL));
