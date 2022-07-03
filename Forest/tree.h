@@ -12,7 +12,7 @@ struct Tree
 {
     void grow_branches();
     bool is_finished() {return branch_pool.size() == 0;}
-    Tree(Constraints, Coords);
+    Tree(const Constraints&, const Coords&);
 private:
     Tree();
     std::vector<std::unique_ptr<Segment>> branch_pool;

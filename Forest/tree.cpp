@@ -1,6 +1,6 @@
 #include "tree.h"
 
-Tree::Tree(Constraints constraints, Coords start_coords)
+Tree::Tree(const Constraints& constraints, const Coords& start_coords)
 // Add the first segment to the branch pool - a SegmentBase.
     :branch_pool{}
 {

@@ -1,6 +1,6 @@
 #include "forest.h"
 
-Forest::Forest(const int tree_num, const int width, const int height, Constraints constraints)
+Forest::Forest(const int tree_num, const int width, const int height, const Constraints& constraints)
 {
     const int x_border = width/5;
     const int adj_width = width - (2*x_border);

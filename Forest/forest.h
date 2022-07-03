@@ -5,8 +5,8 @@
 
 struct Forest
 {
-    void grow_trees(int);
-    Forest(const int, const int, const int, Constraints);
+    void grow_trees(const int);
+    Forest(const int, const int, const int, const Constraints&);
 private:
     Forest();
     std::vector<Tree> tree_pool; 

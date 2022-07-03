@@ -26,7 +26,7 @@ struct Constraints
 struct Segment
 // Abstract base class for all Segment types.
 {   
-    virtual ~Segment() {};
+    virtual ~Segment() = default;
     virtual void choose_next_segments() = 0;
     virtual void draw_segment();
     std::vector<std::unique_ptr<Segment>>& get_next_segments() {return next_segs;}
