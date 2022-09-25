@@ -1,6 +1,7 @@
 .vscode/
 UML.XML
 run.sh
+.cache/
 
 ## ---------- Generic C++ / CMake gitignore ----------
 
