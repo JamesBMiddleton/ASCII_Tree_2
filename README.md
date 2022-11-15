@@ -10,3 +10,6 @@ __Requirements__: <br>
 Must be run in a terminal emulator that supports ANSI escape codes and 24 bit colour. <br>
 _Supported_ - Konsole (KDE), Xterm, Iterm (MacOS), libvte (GNOME, Xfce). <br>
 _Unsupported_ - Windows CMD, Powershell (unless 24 bit colour is manually enabled).
+
+__TODO__: <br>
+ - fix proliferation of 'Segment' subclasses (with Prototype design pattern?).
