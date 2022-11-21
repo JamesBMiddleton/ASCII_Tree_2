@@ -12,4 +12,4 @@ _Supported_ - Konsole (KDE), Xterm, Iterm (MacOS), libvte (GNOME, Xfce). <br>
 _Unsupported_ - Windows CMD, Powershell (unless 24 bit colour is manually enabled).
 
 __TODO__: <br>
- - fix proliferation of 'Segment' subclasses (with Prototype design pattern?).
+ - fix proliferation of 'Segment' subclasses.
